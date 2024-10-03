@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HLS Stream Player</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dplayer/dist/DPlayer.min.css">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #player {
+            margin: auto;
+            width: 640px;
+            height: 360px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>HLS Stream Player</h1>
+
+<!-- Player container -->
+<div id="player"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/dplayer/dist/DPlayer.min.js"></script>
+<script>
+    const tsUrl = 'http://150.242.202.110:824/jiobe/live/14597.ts'; // Replace with your .ts URL
+    const player = new DPlayer({
+        container: document.getElementById('player'),
+        video: {
+            url: `http://localhost:3000/convert?ts=${encodeURIComponent(tsUrl)}`, // Convert and get .m3u8
+            type: 'hls',
+        },
+        autoplay: true,
+        theme: '#FADFA3',
+    });
+
+    player.on('error', (e) => {
+        console.error('Playback error:', e);
+        alert('An error occurred during playback. Check console for details.');
+    });
+</script>
+
+</body>
+</html>
